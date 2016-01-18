@@ -9,6 +9,12 @@ module Iamport
   end
 
   class << self
+    def cancel(imp_uid)
+      url = "https://#{IAMPORT_HOST}/payments/cancel?_token=#{token}"
+      result = HTTParty.post url, body: { imp_uid: imp_uid }
+      result["response"]
+    end
+
     def configure
       yield(config) if block_given?
     end
